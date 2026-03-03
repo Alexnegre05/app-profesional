@@ -14,21 +14,36 @@ export function KpiCards() {
 
   return (
     <div className="grid gap-4 md:grid-cols-4">
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Registros</CardTitle></CardHeader>
-        <CardContent className="text-2xl font-semibold">{kpi.total}</CardContent>
+      {/* 1. Registros - Rojo Fuerte */}
+      <Card className="bg-primary border-none shadow-none text-white rounded-2xl">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold opacity-90">Registros</CardTitle>
+        </CardHeader>
+        <CardContent className="text-3xl font-black">{kpi.total}</CardContent>
       </Card>
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Abiertas</CardTitle></CardHeader>
-        <CardContent className="text-2xl font-semibold">{kpi.open}</CardContent>
+
+      {/* 2. Abiertas - Rojo Suave */}
+      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold opacity-90">Abiertas</CardTitle>
+        </CardHeader>
+        <CardContent className="text-3xl font-black">{kpi.open}</CardContent>
       </Card>
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Cerradas</CardTitle></CardHeader>
-        <CardContent className="text-2xl font-semibold">{kpi.closed}</CardContent>
+
+      {/* 3. Cerradas - Rojo Fuerte */}
+      <Card className="bg-primary border-none shadow-none text-white rounded-2xl">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold opacity-90">Cerradas</CardTitle>
+        </CardHeader>
+        <CardContent className="text-3xl font-black">{kpi.closed}</CardContent>
       </Card>
-      <Card>
-        <CardHeader className="pb-2"><CardTitle className="text-sm">Total importe</CardTitle></CardHeader>
-        <CardContent className="text-2xl font-semibold">{eur(kpi.amountTotal)}</CardContent>
+
+      {/* 4. Total importe - Rojo Suave */}
+      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm font-bold opacity-90">Total importe</CardTitle>
+        </CardHeader>
+        <CardContent className="text-3xl font-black">{eur(kpi.amountTotal)}</CardContent>
       </Card>
     </div>
   );

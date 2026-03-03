@@ -8,7 +8,7 @@ export default function ListadoPage() {
   const items = getAllItems();
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6 min-h-screen bg-cocoa text-white">
       <PageHeader
         title="Listado"
         description="Acciones principales en toolbar, navegación a detalle."
@@ -17,19 +17,29 @@ export default function ListadoPage() {
 
       <div className="grid gap-3">
         {items.map((it) => (
-          <Card key={it.id} className="hover:bg-accent/40 transition-colors">
+          /* Todas las tarjetas en Rojo Fuerte (Primary) sin efectos de hover ni bordes */
+          <Card 
+            key={it.id} 
+            className="bg-primary border-none shadow-none rounded-xl overflow-hidden"
+          >
             <CardContent className="p-4 flex items-center justify-between gap-4">
               <div className="min-w-0">
-                <div className="font-medium truncate">{it.title}</div>
-                <div className="text-sm text-muted-foreground truncate">
+                <div className="font-bold text-lg truncate text-white">{it.title}</div>
+                <div className="text-sm text-white/80 truncate">
                   {it.category} · {it.owner} · {new Date(it.date).toLocaleDateString("es-ES")}
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Badge variant={it.status === "open" ? "default" : "secondary"}>
+              
+              <div className="flex items-center gap-4">
+                {/* Badge en color Mocha para contrastar con el fondo rojo */}
+                <Badge className="bg-mocha text-white border-none font-bold px-3 py-1">
                   {it.status === "open" ? "Abierta" : "Cerrada"}
                 </Badge>
-                <Link className="text-sm underline" href={`/detalle/${it.id}`}>
+                
+                <Link 
+                  className="text-sm font-black underline decoration-white/40 text-white" 
+                  href={`/detalle/${it.id}`}
+                >
                   Ver
                 </Link>
               </div>
