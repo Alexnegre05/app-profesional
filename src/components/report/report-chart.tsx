@@ -18,30 +18,34 @@ export function ReportChart() {
       <CardHeader>
         <CardTitle className="text-lg font-bold">Gráfico por categoría</CardTitle>
       </CardHeader>
-      <CardContent className="h-[320px] pb-6">
+      {/* Ajustamos el padding lateral para que el gráfico no toque los bordes en el móvil */}
+      <CardContent className="h-[320px] pb-6 px-2 md:px-6">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            {/* Rejilla usando el color cocoa (marrón muy oscuro) */}
+          {/* Añadimos margen izquierdo para que los números del eje Y no se corten */}
+          <BarChart data={data} margin={{ left: -10, right: 10, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--color-cocoa)" vertical={false} />
             
-            {/* Ejes usando el color blanco del texto (foreground) */}
             <XAxis 
               dataKey="category" 
               stroke="currentColor" 
-              fontSize={12} 
+              fontSize={10} // Un poco más pequeño para móvil
               tickLine={false} 
               axisLine={false} 
               className="opacity-50"
+              interval={0} // Obliga a mostrar todas las categorías
+              angle={-45}  // Rota el texto para que quepa en la pantalla del móvil
+              textAnchor="end"
+              height={60}  // Espacio extra para el texto rotado
             />
             <YAxis 
               stroke="currentColor" 
-              fontSize={12} 
+              fontSize={10} // Un poco más pequeño para móvil
               tickLine={false} 
               axisLine={false}
               className="opacity-50"
+              width={40}
             />
             
-            {/* Tooltip usando fondo cocoa para que no se vea blanco */}
             <Tooltip
               contentStyle={{ backgroundColor: "var(--color-cocoa)", border: "none", borderRadius: "8px" }}
               itemStyle={{ color: "white" }}
@@ -51,7 +55,6 @@ export function ReportChart() {
               }
             />
             
-            {/* Barras intercalando el Rojo Fuerte (Primary) y el Rojo Suave (Secondary) */}
             <Bar dataKey="count" fill="var(--color-primary)" radius={[4, 4, 0, 0]} name="Cantidad" />
             <Bar dataKey="amount" fill="var(--color-secondary)" radius={[4, 4, 0, 0]} name="Importe" />
           </BarChart>

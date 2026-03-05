@@ -6,42 +6,57 @@ import { ReportTable } from "@/components/report/report-table";
 
 export default function InformePage() {
   return (
-    <div className="space-y-8 p-6 min-h-screen bg-background text-white">
+    /* 
+       Añadimos 'w-full' y 'overflow-x-hidden' para evitar que el gráfico 
+       o la tabla estiren la pantalla del móvil hacia los lados.
+    */
+    <div className="space-y-6 md:space-y-8 p-4 md:p-6 min-h-screen bg-background text-white w-full overflow-x-hidden">
       <PageHeader
         title="Informe"
-        description="Filtros, KPIs y visualización de datos sin elementos blancos."
+        description="Filtros, KPIs y visualización de datos."
         helpKey="informe"
       />
 
-      {/* 1. Sección de Filtros: Cambiado de blanco a Rojo Suave (secondary) para intercalar */}
-      <section className="bg-secondary p-6 rounded-2xl border-none shadow-none">
+      {/* 1. Sección de Filtros: Reducimos padding en móvil (p-4) para ganar espacio */}
+      <section className="bg-secondary p-4 md:p-6 rounded-2xl border-none shadow-none">
         <ReportFilters />
       </section>
 
-      {/* 2. KPIs: Debes entrar en KpiCards.tsx y cambiar el bg-white por bg-primary y bg-secondary intercalados */}
-      <div className="grid gap-6">
+      {/* 2. KPIs: El grid se gestiona dentro de KpiCards (que ya hicimos responsive) */}
+      <div className="w-full">
         <KpiCards />
       </div>
 
-      {/* 3. Gráficos y Tablas: Usamos Rojo Fuerte (primary) para intercalar con la sección de arriba */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Bloque Izquierdo: Rojo Fuerte */}
-        <div className="bg-primary p-6 rounded-2xl border-none shadow-none text-white">
-           <h3 className="font-bold mb-4 text-white text-lg">Evolución Temporal</h3>
-           {/* El fondo del gráfico en mocha para que las líneas se vean bien */}
-           <div className="bg-mocha/50 p-4 rounded-xl">
+      {/* 
+         3. Gráficos y Tablas: 
+         'grid-cols-1' -> Una debajo de otra en el OPPO.
+         'lg:grid-cols-2' -> Lado a lado en el ordenador.
+      */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        {/* Bloque Izquierdo: Gráfico */}
+        <div className="bg-primary p-4 md:p-6 rounded-2xl border-none shadow-none text-white flex flex-col">
+           <h3 className="font-bold mb-4 text-white text-lg px-2">Evolución Temporal</h3>
+           {/* 'bg-mocha/50' para legibilidad, quitamos padding lateral extra en móvil */}
+           <div className="bg-mocha/50 p-2 md:p-4 rounded-xl flex-1">
               <ReportChart />
            </div>
         </div>
         
-        {/* Bloque Derecho: Rojo Fuerte (o puedes poner secondary si quieres más variedad) */}
-        <div className="bg-primary p-6 rounded-2xl border-none shadow-none text-white">
-           <h3 className="font-bold mb-4 text-white text-lg">Registros Detallados</h3>
-           <div className="bg-mocha/50 p-4 rounded-xl">
+        {/* Bloque Derecho: Tabla */}
+        <div className="bg-primary p-4 md:p-6 rounded-2xl border-none shadow-none text-white flex flex-col">
+           <h3 className="font-bold mb-4 text-white text-lg px-2">Registros Detallados</h3>
+           <div className="bg-mocha/50 p-2 md:p-4 rounded-xl flex-1 overflow-hidden">
               <ReportTable />
            </div>
         </div>
       </div>
+
+      {/* 
+          Añadimos un espacio extra al final para que la barra inferior 
+          del móvil no tape la última parte de la tabla.
+      */}
+      <div className="h-20 md:hidden" />
     </div>
   );
 }

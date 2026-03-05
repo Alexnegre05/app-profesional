@@ -13,37 +13,62 @@ export function KpiCards() {
   const kpi = React.useMemo(() => computeKpis(items), [items]);
 
   return (
-    <div className="grid gap-4 md:grid-cols-4">
+    /* 
+       CAMBIO CLAVE: 
+       'grid-cols-2' -> 2 columnas en móviles.
+       'md:grid-cols-4' -> 4 columnas en PC.
+       'gap-3 md:gap-4' -> Espacio más ajustado en móvil para aprovechar la pantalla.
+    */
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+      
       {/* 1. Registros - Rojo Fuerte */}
-      <Card className="bg-primary border-none shadow-none text-white rounded-2xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold opacity-90">Registros</CardTitle>
+      <Card className="bg-primary border-none shadow-none text-white rounded-2xl flex flex-col justify-between overflow-hidden">
+        <CardHeader className="pb-1 p-4 md:p-6">
+          <CardTitle className="text-xs md:text-sm font-bold opacity-80 uppercase tracking-wider">
+            Registros
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-3xl font-black">{kpi.total}</CardContent>
+        {/* 'text-2xl' en móvil para que quepa bien el número, 'md:text-3xl' en PC */}
+        <CardContent className="text-2xl md:text-3xl font-black p-4 pt-0 md:p-6 md:pt-0">
+          {kpi.total}
+        </CardContent>
       </Card>
 
       {/* 2. Abiertas - Rojo Suave */}
-      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold opacity-90">Abiertas</CardTitle>
+      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl flex flex-col justify-between overflow-hidden">
+        <CardHeader className="pb-1 p-4 md:p-6">
+          <CardTitle className="text-xs md:text-sm font-bold opacity-80 uppercase tracking-wider">
+            Abiertas
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-3xl font-black">{kpi.open}</CardContent>
+        <CardContent className="text-2xl md:text-3xl font-black p-4 pt-0 md:p-6 md:pt-0">
+          {kpi.open}
+        </CardContent>
       </Card>
 
       {/* 3. Cerradas - Rojo Fuerte */}
-      <Card className="bg-primary border-none shadow-none text-white rounded-2xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold opacity-90">Cerradas</CardTitle>
+      <Card className="bg-primary border-none shadow-none text-white rounded-2xl flex flex-col justify-between overflow-hidden">
+        <CardHeader className="pb-1 p-4 md:p-6">
+          <CardTitle className="text-xs md:text-sm font-bold opacity-80 uppercase tracking-wider">
+            Cerradas
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-3xl font-black">{kpi.closed}</CardContent>
+        <CardContent className="text-2xl md:text-3xl font-black p-4 pt-0 md:p-6 md:pt-0">
+          {kpi.closed}
+        </CardContent>
       </Card>
 
       {/* 4. Total importe - Rojo Suave */}
-      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-bold opacity-90">Total importe</CardTitle>
+      <Card className="bg-secondary border-none shadow-none text-white rounded-2xl flex flex-col justify-between overflow-hidden">
+        <CardHeader className="pb-1 p-4 md:p-6">
+          <CardTitle className="text-xs md:text-sm font-bold opacity-80 uppercase tracking-wider">
+            Total importe
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-3xl font-black">{eur(kpi.amountTotal)}</CardContent>
+        {/* 'truncate' y 'text-xl' para asegurar que el símbolo de € no se salga de la tarjeta en móviles pequeños */}
+        <CardContent className="text-xl md:text-3xl font-black p-4 pt-0 md:p-6 md:pt-0 truncate">
+          {eur(kpi.amountTotal)}
+        </CardContent>
       </Card>
     </div>
   );
